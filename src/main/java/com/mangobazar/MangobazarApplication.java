@@ -11,6 +11,8 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import  springfox.documentation.swagger.web.SecurityConfiguration;
+
 
 @EnableSwagger2
 @SpringBootApplication
@@ -36,7 +38,6 @@ public class MangobazarApplication {
                 .title("Mangobazar REST Api")
                 .description(null)
                 .termsOfServiceUrl(null)
-                .contact(null)
                 .license(null)
                 .licenseUrl(null)
                 .version(null)

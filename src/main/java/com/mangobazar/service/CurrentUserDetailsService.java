@@ -4,7 +4,6 @@ import com.mangobazar.model.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,7 +35,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
         List<SimpleGrantedAuthority> authList = new ArrayList<>();
         authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
-        User user = new User(systemUser.getEmail(), systemUser.getPasswordHash(), authList);
+        User user = new User(systemUser.getEmail(), systemUser.getPassword(), authList);
 
         return user;
     }

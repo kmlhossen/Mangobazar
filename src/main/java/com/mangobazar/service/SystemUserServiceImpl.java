@@ -4,6 +4,8 @@ package com.mangobazar.service;
 import com.mangobazar.model.SystemUser;
 import com.mangobazar.repository.SystemUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class SystemUserServiceImpl implements SystemUserService {
 
+    static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final SystemUserRepository systemUserRepository;
 
     @Autowired
@@ -26,6 +29,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     @Transactional
     @Override
     public SystemUser createUser(SystemUser systemUser){
+        systemUser.setPassword(passwordEncoder.encode(systemUser.getPassword()));
         return systemUserRepository.saveAndFlush(systemUser);
     }
 }

@@ -24,7 +24,11 @@ public class SystemUser {
         return email;
     }
 
-    public String getPasswordHash() {
+    public String getPassword() {
         return passwordHash;
+    }
+
+    public void setPassword(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }

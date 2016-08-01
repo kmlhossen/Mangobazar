@@ -21,7 +21,7 @@ public class UserController {
         systemUserService = service;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping (method =  RequestMethod.POST)
     public void createUser(@RequestBody SystemUser systemUser) {
         systemUserService.createUser(systemUser);

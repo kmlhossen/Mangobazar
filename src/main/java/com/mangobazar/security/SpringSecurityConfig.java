@@ -1,7 +1,6 @@
 package com.mangobazar.security;
 
 import com.mangobazar.service.CurrentUserDetailsService;
-import org.springframework.boot.autoconfigure.security.SecurityPrerequisite;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

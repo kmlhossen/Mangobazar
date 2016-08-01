@@ -3,10 +3,12 @@ package com.mangobazar.security;
 import com.mangobazar.service.CurrentUserDetailsService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Service
 public class TokenAuthenticationService {
 
     private static final String AUTH_HEADER_NAME = "X-AUTH-TOKEN";
@@ -17,9 +19,11 @@ public class TokenAuthenticationService {
         tokenHandler = new TokenHandler(secret, currentUserDetailsService);
     }
 
-    public void addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
+    public String addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
         final User user = authentication.getDetails();
-        response.addHeader(AUTH_HEADER_NAME, tokenHandler.createTokenForUser(user));
+        String token = tokenHandler.createTokenForUser(user);
+        response.addHeader(AUTH_HEADER_NAME, token);
+        return token;
     }
 
     public Authentication getAuthentication(HttpServletRequest request) {
