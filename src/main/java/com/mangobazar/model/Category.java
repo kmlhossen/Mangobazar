@@ -19,21 +19,21 @@ public class Category {
 	@Id
 	@Column(name = "Id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long m_Id;
+	private Long id;
 
     @ApiModelProperty(value = "name of the category", required = true)
 	@Column(name = "Name")
-	private String m_Name;
+	private String name;
 
 	public Long getId(){
-		return m_Id;
+		return id;
 	}
 
 	public String getName(){
-		return m_Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		m_Name = name;
+		this.name = name;
 	}
 }

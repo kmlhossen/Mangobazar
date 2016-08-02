@@ -11,43 +11,44 @@ import java.util.Set;
 public class SystemUser {
 
     public SystemUser(){
-        m_Active = true;
-        m_Roles.add(UserRole.CUSTOMER);
+        isActive = true;
+        // default role
+        roles.add(UserRole.CUSTOMER);
     }
 
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long m_Id;
+    private Long id;
 
     @Column(name = "Email", nullable = false, unique = true)
-    private String m_Email;
+    private String email;
 
     // stores the password hash
     @Column(name = "Password", nullable = false)
-    private String m_Password;
+    private String password;
 
     @Column(name = "FirsName")
-    private String m_FirstName;
+    private String firstName;
 
     @Column(name = "LastName")
-    private String m_LastName;
+    private String lastName;
 
     @Column(name = "Address")
-    private String m_Address;
+    private String address;
 
     @Column(name = "ContactNo")
-    private String m_ContactNo;
+    private String contactNo;
 
     @Column(name = "Active")
-    private boolean m_Active;
+    private boolean isActive;
 
 
     // Many to Many relation between user and role.
     @ElementCollection(targetClass = UserRole.class)
     @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "UserId"))
     @Column(name = "RoleName", nullable = false)
-    private Set<UserRole> m_Roles = new HashSet<>();
+    private Set<UserRole> roles = new HashSet<>();
 
 
     /**
@@ -60,11 +61,11 @@ public class SystemUser {
      */
     @Enumerated(EnumType.STRING)
     public Set<UserRole> getRoles() {
-        return m_Roles;
+        return roles;
     }
 
     public Long getId() {
-        return m_Id;
+        return id;
     }
 
     /**
@@ -76,7 +77,7 @@ public class SystemUser {
      * @return user's email address.
      */
     public String getEmail() {
-        return m_Email;
+        return email;
     }
 
     /**
@@ -88,23 +89,23 @@ public class SystemUser {
      * @return user's encrypted password.
      */
     public String getPassword() {
-        return m_Password;
+        return password;
     }
 
     public String getFirstName() {
-        return m_FirstName;
+        return firstName;
     }
 
     public String getLastName() {
-        return m_LastName;
+        return lastName;
     }
 
     public String getAddress() {
-        return m_Address;
+        return address;
     }
     
     public String getContactNo() {
-        return m_ContactNo;
+        return contactNo;
     }
 
     /**
@@ -116,7 +117,7 @@ public class SystemUser {
      * @return true if user is active else false.
      */
     public boolean isActive() {
-        return m_Active;
+        return isActive;
     }
 
     /**
@@ -128,34 +129,34 @@ public class SystemUser {
      * @param passwordHash user's encrypted password.
      */
     public void setPassword(String passwordHash) {
-        m_Password = passwordHash;
+        password = passwordHash;
     }
 
     public void setEmail(String email) {
-        m_Email = email;
+        this.email = email;
     }
 
     public void setFirstName(String firstName) {
-        m_FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
-        m_LastName = lastName;
+        this.lastName = lastName;
     }
 
     public void setAddress(String address) {
-        m_Address = address;
+        this.address = address;
     }
 
     public void setContactNo(String contactNo) {
-        m_ContactNo = contactNo;
+        this.contactNo = contactNo;
     }
 
     public void setRoles(Set<UserRole> roles) {
-        m_Roles = roles;
+        this.roles = roles;
     }
 
     public void setContactNo(boolean active) {
-        m_Active = active;
+        this.isActive = active;
     }
 }
