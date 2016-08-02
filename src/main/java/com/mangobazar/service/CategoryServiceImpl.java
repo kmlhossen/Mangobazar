@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.mangobazar.model.Category;
 import com.mangobazar.repository.CategoryRepository;
 
+/**
+ * Implements category service interface.
+ */
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	

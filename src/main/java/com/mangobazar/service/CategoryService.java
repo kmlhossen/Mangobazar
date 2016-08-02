@@ -4,6 +4,9 @@ import com.mangobazar.model.Category;
 
 import java.util.Collection;
 
+/**
+ * Defines available category service.
+ */
 public interface CategoryService {
     Collection<Category> getAllCategory();
     Category getCategory(long id);

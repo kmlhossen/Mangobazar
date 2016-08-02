@@ -1,40 +1,40 @@
 package com.mangobazar;
 
-import static springfox.documentation.builders.PathSelectors.regex;
-
-import com.fasterxml.classmate.TypeResolver;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.ApiKeyVehicle;
+import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import  springfox.documentation.swagger.web.SecurityConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
 @SpringBootApplication
 public class MangobazarApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MangobazarApplication.class, args);
-	}
-	
-	
-	@Bean
+    /**
+     * Main entry point of the Spring boot application.
+     * <p>
+     * NOTES/ASSUMPTIONS: <BR>
+     * None.
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(MangobazarApplication.class, args);
+    }
+
+
+    /**
+     * Swagger API documentation configuration.
+     * <p>
+     * NOTES/ASSUMPTIONS: <BR>
+     * Need to find a way to make it private.
+     */
+    @Bean
     public Docket MangobazarApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("")
@@ -43,7 +43,14 @@ public class MangobazarApplication {
                 .paths(regex("/api/.*"))
                 .build();
     }
-     
+
+
+    /**
+     * Swagger API documentation configuration.
+     * <p>
+     * NOTES/ASSUMPTIONS: <BR>
+     * Need to find a way to make it private.
+     */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Mangobazar REST Api")
@@ -56,7 +63,12 @@ public class MangobazarApplication {
     }
 
 
-    // TODO added just to test JWT with springfox swagger ui
+    /**
+     * Swagger API documentation configuration.
+     * <p>
+     * NOTES/ASSUMPTIONS: <BR>
+     * TODO added just to pass JWT token in the header with springfox swagger ui
+     */
     @Bean
     SecurityConfiguration security() {
         return new SecurityConfiguration(
@@ -69,6 +81,4 @@ public class MangobazarApplication {
                 "X-AUTH-TOKEN",
                 "," /*scope separator*/);
     }
-
-
 }

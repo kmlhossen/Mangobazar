@@ -12,6 +12,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * Extends GenericFilterBean to filter JWT token and do authentication
+ */
 public class AuthenticationFilter extends GenericFilterBean {
     private final TokenAuthenticationService authenticationService;
 
@@ -27,6 +30,5 @@ public class AuthenticationFilter extends GenericFilterBean {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
-        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }

@@ -16,5 +16,4 @@ public class ControllerExceptionHandler {
     void handleBadRequests(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.BAD_REQUEST.value());
     }
-
 }

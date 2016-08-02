@@ -28,8 +28,8 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Transactional
     @Override
-    public SystemUser createUser(SystemUser systemUser){
-        systemUser.setPassword(passwordEncoder.encode(systemUser.getPassword()));
-        return systemUserRepository.saveAndFlush(systemUser);
+    public SystemUser createUser(SystemUser userObject){
+        userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
+        return systemUserRepository.saveAndFlush(userObject);
     }
 }
