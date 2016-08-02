@@ -36,8 +36,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .servletApi().and()
                 .headers().cacheControl().and()
 
+
                 .authorizeRequests()
-                .antMatchers("api/admin/**").authenticated().and()
+                .antMatchers("api/admin/**").authenticated()
+                .antMatchers("/login").permitAll().and()
 
                 .addFilterBefore(new AuthenticationFilter(tokenAuthenticationService),
                         UsernamePasswordAuthenticationFilter.class);

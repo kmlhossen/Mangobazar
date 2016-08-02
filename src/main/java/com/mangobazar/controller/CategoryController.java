@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +31,12 @@ public class CategoryController {
     }
 
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(method = RequestMethod.GET)
     @ApiOperation(value = "Get Category", notes = "Returns all the category")
 	public Collection<Category> Category(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //User user = (User) auth.getPrincipal();
 		return categoryService.getAllCategory();
 	}
 
