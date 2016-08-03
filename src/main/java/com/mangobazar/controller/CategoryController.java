@@ -33,7 +33,7 @@ public class CategoryController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(method = RequestMethod.GET)
-    @ApiOperation(value = "Get Category", notes = "Returns all the category")
+    @ApiOperation(value = "Get Category", notes = "Returns all the category", response = Category.class)
 	public Collection<Category> Category(){
         //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         //User user = (User) auth.getPrincipal();

@@ -1,10 +1,10 @@
 package com.mangobazar.controller;
 
 
+import com.mangobazar.exception.DuplicateUserException;
 import com.mangobazar.model.SystemUser;
 import com.mangobazar.service.SystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +23,7 @@ public class UserController {
 
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping (method =  RequestMethod.POST)
-    public void createUser(@RequestBody SystemUser userObject) {
+    public void createUser(@RequestBody SystemUser userObject) throws DuplicateUserException {
         systemUserService.createUser(userObject);
     }
 }

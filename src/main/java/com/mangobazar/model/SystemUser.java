@@ -1,8 +1,10 @@
 package com.mangobazar.model;
 
 import com.mangobazar.util.UserRole;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ public class SystemUser {
         // default role
         roles.add(UserRole.CUSTOMER);
     }
+
 
     @Id
     @Column(name = "Id")
@@ -40,8 +43,11 @@ public class SystemUser {
     @Column(name = "ContactNo")
     private String contactNo;
 
-    @Column(name = "Active")
+    @Column(name = "Active", nullable = false)
     private boolean isActive;
+
+    @Column(name = "LastLogOut")
+    private Date lastLogOut;
 
 
     // Many to Many relation between user and role.
@@ -120,6 +126,14 @@ public class SystemUser {
         return isActive;
     }
 
+    public Date getLastLogOut() {
+        return lastLogOut;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     /**
      * Sets user's encrypted password.
      * <p>
@@ -156,7 +170,11 @@ public class SystemUser {
         this.roles = roles;
     }
 
-    public void setContactNo(boolean active) {
+    public void setActive(boolean active) {
         this.isActive = active;
+    }
+
+    public void setLastLogOut(Date lastLogOut) {
+        this.lastLogOut = lastLogOut;
     }
 }

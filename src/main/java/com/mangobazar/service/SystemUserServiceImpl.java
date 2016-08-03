@@ -1,6 +1,7 @@
 package com.mangobazar.service;
 
 
+import com.mangobazar.exception.DuplicateUserException;
 import com.mangobazar.model.SystemUser;
 import com.mangobazar.repository.SystemUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,16 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Transactional
     @Override
-    public SystemUser createUser(SystemUser userObject){
+    public SystemUser createUser(SystemUser userObject) throws DuplicateUserException {
+        if(systemUserRepository.findOneByEmail(userObject.getEmail()) != null){
+            throw new DuplicateUserException();
+        }
+
+        // make sure id is null for create operation
+        userObject.setId(null);
+        // encrypt the password
         userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
+
         return systemUserRepository.saveAndFlush(userObject);
     }
 }

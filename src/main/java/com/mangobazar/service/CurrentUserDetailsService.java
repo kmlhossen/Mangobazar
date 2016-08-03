@@ -28,8 +28,8 @@ public class CurrentUserDetailsService implements UserDetailsService {
         //check if this user with this username exist, if not, throw an exception
         // and stop the login process
         if (systemUser == null) {
-            throw new UsernameNotFoundException("User details not found with this email: " +
-                    systemUser.getEmail());
+            throw new UsernameNotFoundException("User details not found for this email: " +
+                    email);
         }
 
         List<SimpleGrantedAuthority> authList = new ArrayList<>();
