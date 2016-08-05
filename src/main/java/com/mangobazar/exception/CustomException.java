@@ -11,6 +11,12 @@ public abstract class CustomException extends  Exception {
         errorCode = code;
     }
 
+    public CustomException(int code, String msg, Throwable cause){
+        super(msg, cause);
+        errorMsg = msg;
+        errorCode = code;
+    }
+
     public int getErrorCode() {
         return errorCode;
     }

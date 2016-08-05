@@ -1,7 +1,6 @@
 package com.mangobazar.model;
 
 import com.mangobazar.util.UserRole;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +14,7 @@ public class SystemUser {
     public SystemUser(){
         isActive = true;
         // default role
-        roles.add(UserRole.CUSTOMER);
+        roles.add(UserRole.ROLE_CUSTOMER);
     }
 
 
@@ -31,16 +30,16 @@ public class SystemUser {
     @Column(name = "Password", nullable = false)
     private String password;
 
-    @Column(name = "FirsName")
+    @Column(name = "FirsName", nullable = false)
     private String firstName;
 
-    @Column(name = "LastName")
+    @Column(name = "LastName", nullable = false)
     private String lastName;
 
-    @Column(name = "Address")
+    @Column(name = "Address", nullable = false)
     private String address;
 
-    @Column(name = "ContactNo")
+    @Column(name = "ContactNo", nullable = false)
     private String contactNo;
 
     @Column(name = "Active", nullable = false)
@@ -51,11 +50,11 @@ public class SystemUser {
 
 
     // Many to Many relation between user and role.
-    @ElementCollection(targetClass = UserRole.class)
+    @ElementCollection(targetClass = UserRole.class, fetch=FetchType.EAGER)
     @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "UserId"))
+    @Enumerated(EnumType.STRING)
     @Column(name = "RoleName", nullable = false)
     private Set<UserRole> roles = new HashSet<>();
-
 
     /**
      * Returns list of roles associated with the user.
@@ -65,7 +64,6 @@ public class SystemUser {
      *
      * @return list of roles associated with the user.
      */
-    @Enumerated(EnumType.STRING)
     public Set<UserRole> getRoles() {
         return roles;
     }

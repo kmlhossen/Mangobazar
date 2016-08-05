@@ -1,24 +1,23 @@
 package com.mangobazar.service;
 
 import com.mangobazar.model.SystemUser;
+import com.mangobazar.util.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class CurrentUserDetailsService implements UserDetailsService {
 
+    private Date lastLogOutTime = null;
     @Autowired
     private SystemUserService systemUserService;
-    static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -32,11 +31,22 @@ public class CurrentUserDetailsService implements UserDetailsService {
                     email);
         }
 
+        lastLogOutTime = systemUser.getLastLogOut();
+
+        // add all the found roles.
         List<SimpleGrantedAuthority> authList = new ArrayList<>();
-        authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        for(UserRole userRole : systemUser.getRoles()){
+            authList.add(new SimpleGrantedAuthority(userRole.name()));
+        }
+
+
 
         User user = new User(systemUser.getEmail(), systemUser.getPassword(), authList);
 
         return user;
+    }
+
+    public Date getLastLogOutTime(){
+        return lastLogOutTime;
     }
 }

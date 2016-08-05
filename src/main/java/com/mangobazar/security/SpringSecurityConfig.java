@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -25,7 +24,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public SpringSecurityConfig(){
         super(true);
         currentUserDetailsService = new CurrentUserDetailsService();
-        tokenAuthenticationService = new TokenAuthenticationService("tooManySecrets", currentUserDetailsService);
+        tokenAuthenticationService = new TokenAuthenticationService("passMangOpass", currentUserDetailsService);
     }
 
     @Override
@@ -35,19 +34,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anonymous().and()
                 .servletApi().and()
                 .headers().cacheControl().and()
-
-
-                .authorizeRequests()
-                .antMatchers("api/admin/**").authenticated()
-                .antMatchers("/login").permitAll().and()
-
+                // TODO need to block admin panel root url, later
                 .addFilterBefore(new AuthenticationFilter(tokenAuthenticationService),
                         UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService());
     }
 
     @Bean
@@ -66,4 +60,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public TokenAuthenticationService tokenAuthenticationService() {
         return tokenAuthenticationService;
     }
+
+
 }
