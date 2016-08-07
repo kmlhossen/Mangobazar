@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mangobazar.service.CategoryService;
 import com.mangobazar.model.Category;
 
-@Api(value = "category", description = "Operations about category")
+@Api(value = "category",description = "Operations about category")
 
 @RestController
 @RequestMapping("/api/category")
@@ -39,5 +39,6 @@ public class CategoryController {
     public Category findOne(@ApiParam(value = "id of the category", required = true)  @PathVariable long id) {
         return categoryService.getCategory(id);
     }
+
 
 }

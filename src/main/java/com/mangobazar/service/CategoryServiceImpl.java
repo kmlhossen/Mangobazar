@@ -10,21 +10,30 @@ import com.mangobazar.repository.CategoryRepository;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-	
-	private final CategoryRepository categoryRepository;
+	@Autowired
+	private  CategoryRepository categoryRepository;
 
 	@Autowired
-    public CategoryServiceImpl(CategoryRepository repository) {
-		categoryRepository = repository;
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+		this.categoryRepository = categoryRepository;
     }
 	
-	@Override
-	public Collection<Category> getAllCategory() {
-		return categoryRepository.findAll();
-	}
+
 
 	@Override
 	public Category getCategory(long id) {
 		return categoryRepository.findOne(id);
 	}
+
+
+
+	@Override
+	public Collection<Category> getAllCategory() {
+		// TODO Auto-generated method stub
+		return categoryRepository.findAll();
+	}
+
+
+
+	
 }

@@ -7,4 +7,6 @@ import java.util.Collection;
 public interface CategoryService {
     Collection<Category> getAllCategory();
     Category getCategory(long id);
+	
+
 }

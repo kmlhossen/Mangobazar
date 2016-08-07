@@ -5,7 +5,6 @@ import static springfox.documentation.builders.PathSelectors.regex;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -36,7 +35,6 @@ public class MangobazarApplication {
                 .title("Mangobazar REST Api")
                 .description(null)
                 .termsOfServiceUrl(null)
-                .contact(null)
                 .license(null)
                 .licenseUrl(null)
                 .version(null)
