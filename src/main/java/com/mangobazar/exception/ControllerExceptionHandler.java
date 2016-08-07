@@ -20,20 +20,23 @@ import java.io.IOException;
 public class ControllerExceptionHandler {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-
-    @ExceptionHandler({CustomException.class, UsernameNotFoundException.class, EntityExistsException.class,
-            DataIntegrityViolationException.class})
-    void handleBadRequestException(HttpServletResponse response, Exception ex) throws IOException {
-        response.sendError(HttpStatus.BAD_REQUEST.value());
-        log.error(ex.getMessage(), ex);
-    }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    void handleAccessDeniedException(HttpServletResponse response, Exception ex) throws IOException {
+    @ExceptionHandler({UsernameNotFoundException.class, InvalidLogInException.class})
+    void handleAuthenticationException(HttpServletResponse response, Exception ex) throws IOException {
         response.sendError(HttpStatus.UNAUTHORIZED.value());
         log.error(ex.getMessage(), ex);
     }
 
+    @ExceptionHandler({AccessDeniedException.class})
+    void handleAccessDeniedException(HttpServletResponse response, Exception ex) throws IOException {
+        response.sendError(HttpStatus.FORBIDDEN.value());
+        log.error(ex.getMessage(), ex);
+    }
+
+    @ExceptionHandler({CustomException.class, DataIntegrityViolationException.class})
+    void handleBadRequestException(HttpServletResponse response, Exception ex) throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value());
+        log.error(ex.getMessage(), ex);
+    }
 
     @ExceptionHandler(Exception.class)
     void handleGenericlException(HttpServletResponse response, Exception ex) throws IOException {

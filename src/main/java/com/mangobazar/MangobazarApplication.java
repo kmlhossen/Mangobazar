@@ -120,8 +120,6 @@ public class MangobazarApplication {
                         errorAttributes.put("error_code", ErrorCodes.ERROR_DATABASE_QUERY_FAILED);
                     }
 
-                } else {
-                    errorAttributes.put("error_code", ErrorCodes.ERROR_UNKNOWN);
                 }
 
                 return errorAttributes;

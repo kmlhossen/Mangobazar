@@ -41,10 +41,13 @@ public class AuthenticationFilter extends GenericFilterBean {
             filterChain.doFilter(request, response);
 
         } catch (JwtException | UsernameNotFoundException ex) {
-            //UserNotFoundException Only happen here if token exist, but user delete account from another session
+            //TODO will fix when supporting mobile client.
+            //UserNotFoundException Only happen here if token exist in one session,
+            //but user delete account from another session.
             SecurityContextHolder.clearContext();
             HttpServletResponse httpResponse = (HttpServletResponse) response;
-            httpResponse.sendError(HttpStatus.FORBIDDEN.value(), ex.getCause() == null ? ex.getMessage() :
+            // modify the response code and message
+            httpResponse.sendError(HttpStatus.UNAUTHORIZED.value(), ex.getCause() == null ? ex.getMessage() :
                     ex.getCause().getMessage());
             log.error(ex.getMessage(), ex);
         }
