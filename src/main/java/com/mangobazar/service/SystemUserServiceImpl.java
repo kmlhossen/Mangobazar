@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Date;
 
 @Service
@@ -32,8 +33,8 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Override
     public boolean checkPassword(String userPassword, String givenPassword) {
-        if(userPassword != null && givenPassword != null){
-                return passwordEncoder.matches(givenPassword, userPassword);
+        if (userPassword != null && givenPassword != null) {
+            return passwordEncoder.matches(givenPassword, userPassword);
         }
         return false;
     }
@@ -41,7 +42,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     @Override
     public SystemUser createUser(SystemUserDto systemUserDto) throws DuplicateEntryException {
 
-        if(systemUserRepository.findOneByEmail(systemUserDto.getEmail()) != null){
+        if (systemUserRepository.findOneByEmail(systemUserDto.getEmail()) != null) {
             throw new DuplicateEntryException("User name already exist");
         }
 
@@ -64,7 +65,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     @Override
     public void updateLogOutTime(String userName) {
         SystemUser systemUser = getUserByEmail(userName);
-        if(systemUser != null){
+        if (systemUser != null) {
             systemUser.setLastLogOut(new Date(System.currentTimeMillis()));
         }
     }

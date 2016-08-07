@@ -21,7 +21,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final CurrentUserDetailsService currentUserDetailsService;
     private final TokenAuthenticationService tokenAuthenticationService;
 
-    public SpringSecurityConfig(){
+    public SpringSecurityConfig() {
         super(true);
         currentUserDetailsService = new CurrentUserDetailsService();
         tokenAuthenticationService = new TokenAuthenticationService("passMangOpass", currentUserDetailsService);

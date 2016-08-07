@@ -1,7 +1,7 @@
 package com.mangobazar.exception;
 
 
-public class InvalidLogInException extends CustomException{
+public class InvalidLogInException extends CustomException {
     private static final String errorMessage = "Username/password did not match";
 
     public InvalidLogInException() {

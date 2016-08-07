@@ -116,7 +116,7 @@ public class MangobazarApplication {
                         errorAttributes.put("error_code", ((CustomException) error).getErrorCode());
                     } else if (error instanceof UsernameNotFoundException) {
                         errorAttributes.put("error_code", ErrorCodes.ERROR_NO_USER_FOUND);
-                    } else if (error instanceof DataIntegrityViolationException){
+                    } else if (error instanceof DataIntegrityViolationException) {
                         errorAttributes.put("error_code", ErrorCodes.ERROR_DATABASE_QUERY_FAILED);
                     }
 

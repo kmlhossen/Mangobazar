@@ -8,6 +8,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import javax.persistence.EntityExistsException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     void handleAccessDeniedException(HttpServletResponse response, Exception ex) throws IOException {
-        response.sendError(HttpStatus.FORBIDDEN.value());
+        response.sendError(HttpStatus.UNAUTHORIZED.value());
         log.error(ex.getMessage(), ex);
     }
 

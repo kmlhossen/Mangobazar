@@ -6,7 +6,10 @@ import com.mangobazar.model.SystemUser;
 
 public interface SystemUserService {
     SystemUser createUser(SystemUserDto systemUserDto) throws DuplicateEntryException;
+
     SystemUser getUserByEmail(String email);
+
     boolean checkPassword(String userPassword, String givenPassword);
+
     void updateLogOutTime(String userName);
 }

@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,32 +22,27 @@ public class CurrentUserDetailsService implements UserDetailsService {
 
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
-
+        User user = null;
         SystemUser systemUser = systemUserService.getUserByEmail(email);
 
         //check if this user with this username exist, if not, throw an exception
         // and stop the login process
-        if (systemUser == null) {
-            throw new UsernameNotFoundException("User details not found for this email: " +
-                    email);
+        if (systemUser != null) {
+            lastLogOutTime = systemUser.getLastLogOut();
+
+            // add all the found roles.
+            List<SimpleGrantedAuthority> authList = new ArrayList<>();
+            for (UserRole userRole : systemUser.getRoles()) {
+                authList.add(new SimpleGrantedAuthority(userRole.name()));
+            }
+
+            user = new User(systemUser.getEmail(), systemUser.getPassword(), authList);
         }
-
-        lastLogOutTime = systemUser.getLastLogOut();
-
-        // add all the found roles.
-        List<SimpleGrantedAuthority> authList = new ArrayList<>();
-        for(UserRole userRole : systemUser.getRoles()){
-            authList.add(new SimpleGrantedAuthority(userRole.name()));
-        }
-
-
-
-        User user = new User(systemUser.getEmail(), systemUser.getPassword(), authList);
 
         return user;
     }
 
-    public Date getLastLogOutTime(){
+    public Date getLastLogOutTime() {
         return lastLogOutTime;
     }
 }

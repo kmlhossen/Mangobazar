@@ -5,8 +5,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+
 import java.util.Date;
+import java.util.stream.Collectors;
 
 public final class TokenHandler {
     private final long TOKEN_VALIDITY = 1800000;
@@ -26,8 +29,10 @@ public final class TokenHandler {
                 .getBody();
 
         User user =  currentUserDetailsService.loadUserByUsername(claims.getSubject());
-        //user logged out before using this token
-        if(currentUserDetailsService.getLastLogOutTime().compareTo(claims.getIssuedAt()) > 0){
+
+        //user logged out before, using this token
+        if(currentUserDetailsService.getLastLogOutTime() != null &&
+                currentUserDetailsService.getLastLogOutTime().compareTo(claims.getIssuedAt()) > 0){
             throw new JwtException("JWT expired, please login again.");
         }
 
@@ -40,12 +45,13 @@ public final class TokenHandler {
         Date issuedAt = new Date(nowMillis);
         Date expireAt = new Date(expMillis);
 
-
         return Jwts.builder()
                 .setIssuedAt(issuedAt)
                 .setSubject(user.getUsername())
                 .signWith(SignatureAlgorithm.HS512, encryptionKey)
                 .setExpiration(expireAt)
+                .claim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(
+                        Collectors.joining(",")))
                 .compact();
     }
 }

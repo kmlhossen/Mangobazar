@@ -23,7 +23,7 @@ public class SystemUserController {
     }
 
     @ApiOperation(value = "Create a new user", notes = "Create user with default role")
-    @RequestMapping (method =  RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public void createUser(@RequestBody SystemUserDto systemUserDto) throws DuplicateEntryException {
         systemUserService.createUser(systemUserDto);
     }

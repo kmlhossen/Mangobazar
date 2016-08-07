@@ -8,10 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="User")
+@Table(name = "User")
 public class SystemUser {
 
-    public SystemUser(){
+    public SystemUser() {
         isActive = true;
         // default role
         roles.add(UserRole.ROLE_CUSTOMER);
@@ -50,7 +50,7 @@ public class SystemUser {
 
 
     // Many to Many relation between user and role.
-    @ElementCollection(targetClass = UserRole.class, fetch=FetchType.EAGER)
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "UserId"))
     @Enumerated(EnumType.STRING)
     @Column(name = "RoleName", nullable = false)
@@ -107,7 +107,7 @@ public class SystemUser {
     public String getAddress() {
         return address;
     }
-    
+
     public String getContactNo() {
         return contactNo;
     }

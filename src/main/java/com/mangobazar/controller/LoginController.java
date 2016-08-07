@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.servlet.http.HttpServletResponse;
 
 @Api(value = "Login", description = "Login functionality")
@@ -38,11 +39,11 @@ LoginController {
 
 
     @ApiOperation(value = "LogIn", notes = "Login user with username and password")
-    @RequestMapping (method =  RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String login(@RequestBody LoginDto loginDto, HttpServletResponse response) throws Exception {
         User user = currentUserDetailsService.loadUserByUsername(loginDto.getEmail());
 
-        if(!systemUserService.checkPassword(user.getPassword(), loginDto.getPassword().trim())){
+        if (!systemUserService.checkPassword(user.getPassword(), loginDto.getPassword().trim())) {
             throw new InvalidLogInException();
         }
 

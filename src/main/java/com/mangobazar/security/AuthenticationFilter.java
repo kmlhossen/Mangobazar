@@ -34,12 +34,12 @@ public class AuthenticationFilter extends GenericFilterBean {
         Authentication authentication = null;
 
         //TODO Need to check any better way exist or not.
-        try{
+        try {
             authentication = authenticationService.getAuthentication(httpRequest);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(request, response);
 
-        }catch (JwtException ex){
+        } catch (JwtException ex) {
             SecurityContextHolder.clearContext();
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.sendError(HttpStatus.FORBIDDEN.value(), ex.getCause() == null ? ex.getMessage() :
