@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.filter.GenericFilterBean;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -39,7 +40,8 @@ public class AuthenticationFilter extends GenericFilterBean {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(request, response);
 
-        } catch (JwtException ex) {
+        } catch (JwtException | UsernameNotFoundException ex) {
+            //UserNotFoundException Only happen here if token exist, but user delete account from another session
             SecurityContextHolder.clearContext();
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.sendError(HttpStatus.FORBIDDEN.value(), ex.getCause() == null ? ex.getMessage() :

@@ -27,17 +27,19 @@ public class CurrentUserDetailsService implements UserDetailsService {
 
         //check if this user with this username exist, if not, throw an exception
         // and stop the login process
-        if (systemUser != null) {
-            lastLogOutTime = systemUser.getLastLogOut();
-
-            // add all the found roles.
-            List<SimpleGrantedAuthority> authList = new ArrayList<>();
-            for (UserRole userRole : systemUser.getRoles()) {
-                authList.add(new SimpleGrantedAuthority(userRole.name()));
-            }
-
-            user = new User(systemUser.getEmail(), systemUser.getPassword(), authList);
+        if (systemUser == null) {
+            throw new UsernameNotFoundException("No user found with this: " + email);
         }
+
+        lastLogOutTime = systemUser.getLastLogOut();
+
+        // add all the found roles.
+        List<SimpleGrantedAuthority> authList = new ArrayList<>();
+        for (UserRole userRole : systemUser.getRoles()) {
+            authList.add(new SimpleGrantedAuthority(userRole.name()));
+        }
+
+        user = new User(systemUser.getEmail(), systemUser.getPassword(), authList);
 
         return user;
     }
