@@ -1,39 +1,31 @@
 package com.mangobazar.model;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Represent category table in the database.
  */
-@ApiModel("Category")
 @Entity
+@Table(name = "Category")
 public class Category {
-	Category(){
 
-	}
+    @Id
+    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @ApiModelProperty(value = "id of the category", required = true)
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @Column(name = "Name", nullable = false, unique = true)
+    private String name;
 
-    @ApiModelProperty(value = "name of the category", required = true)
-	@Column
-	private String name;
+    public Long getId() {
+        return id;
+    }
 
-	public Long getId(){
-		return id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName(){
-		return name;
-	}
-	
+    public void setName(String name) {
+        this.name = name;
+    }
 }

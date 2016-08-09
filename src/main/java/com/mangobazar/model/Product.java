@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 
 /**
  * Represent category table in the database.
@@ -22,19 +22,17 @@ public class Product {
 
 	}
 
-    @ApiModelProperty(value = "id of the Product", required = true)
+  
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "Id")
 	private Long id;
 
-    @ApiModelProperty(value = "name of the Product", required = true)
-	@Column
+	@Column(name = "Name", nullable = false, unique = true)
 	private String name;
     
-    @ApiModelProperty(value = "category of the Product", required = true)
- 	
     @OneToOne(fetch=FetchType.EAGER)
- 	@JoinColumn(name= "category_id" )
+ 	@JoinColumn(name= "CategoryId" )
     private Category category;
     
 	public Category getCategory() {
