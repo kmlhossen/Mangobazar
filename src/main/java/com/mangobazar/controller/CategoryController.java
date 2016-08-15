@@ -24,9 +24,8 @@ public class CategoryController {
     public CategoryController(CategoryService service) {
         categoryService = service;
     }
-
-    //TODO need to get rid of hard coded role
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    
+    @PreAuthorize("hasPermission(#categoryDto,'create')")
     @ApiOperation(value = "Create category", notes = "Create category")
     @RequestMapping(method = RequestMethod.POST)
     public void createCategory(@RequestBody CategoryDto categoryDto, HttpServletResponse response) {

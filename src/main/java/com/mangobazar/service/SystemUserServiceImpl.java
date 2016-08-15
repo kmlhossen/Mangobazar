@@ -1,17 +1,19 @@
 package com.mangobazar.service;
 
 
-import com.mangobazar.dto.SystemUserDto;
-import com.mangobazar.exception.DuplicateEntryException;
-import com.mangobazar.model.SystemUser;
-import com.mangobazar.repository.SystemUserRepository;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import com.mangobazar.dto.SystemUserDto;
+import com.mangobazar.exception.DuplicateEntryException;
+import com.mangobazar.model.SystemUser;
+import com.mangobazar.repository.SystemUserRepository;
 
 @Service
 @Transactional
@@ -27,6 +29,7 @@ public class SystemUserServiceImpl implements SystemUserService {
 
 
     @Override
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
     public SystemUser getUserByEmail(String email) {
         return systemUserRepository.findOneByEmail(email);
     }
@@ -69,4 +72,12 @@ public class SystemUserServiceImpl implements SystemUserService {
             systemUser.setLastLogOut(new Date(System.currentTimeMillis()));
         }
     }
+
+
+	@Override
+	public boolean hasAccess(SystemUser user, String userName) {
+		SystemUser systemUser=getUserByEmail(userName);
+		return systemUser!=null ;
+		
+	}
 }
