@@ -15,8 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.mangobazar.util.RoleType;
-
 
 
 @Entity
@@ -25,12 +23,7 @@ public class SystemUser {
 
 	public SystemUser() {
 		isActive = true;
-		// default role
 		roles= new HashSet<UserRole>();
-		UserRole role=new UserRole();
-		role.setId((long) RoleType.ROLE_CUSTOMER.ordinal());
-		role.setName(RoleType.ROLE_CUSTOMER.name());
-		roles.add(role);
 	}
 
 	@Id
