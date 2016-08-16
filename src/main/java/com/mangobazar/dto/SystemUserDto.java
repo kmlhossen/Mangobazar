@@ -27,21 +27,7 @@ public class SystemUserDto {
     @ApiModelProperty(value = "User contact no", required = true)
     private String contactNo;
     
-    @ApiModelProperty(value = "Role:1-ROLE_ADMIN,"+
-    "2-ROLE_SUPPORT_USER,"+
-     "ROLE_CUSTOMER(3)", required = true)
-   private  Set<Long> roleList = new HashSet<Long>();
-
-
-   
-
-	public Set<Long> getRoleList() {
-		return roleList;
-	}
-
-	public void setRoleList(Set<Long> roleList) {
-		this.roleList = roleList;
-	}
+	
 
 	public String getEmail() {
         return email;

@@ -24,9 +24,9 @@ public class UserRole {
 	@Id
 	@Column(name = "Id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private int id;
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -41,7 +41,7 @@ public class UserRole {
 	@JoinTable(name = "Roles_Privileges", joinColumns = @JoinColumn(name = "RoleId", referencedColumnName = "Id"), inverseJoinColumns = @JoinColumn(name = "PrivilegeId", referencedColumnName = "Id"))
 	private Set<Privilege> privileges;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 

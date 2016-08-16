@@ -16,6 +16,7 @@ import com.mangobazar.exception.DuplicateEntryException;
 import com.mangobazar.model.SystemUser;
 import com.mangobazar.model.UserRole;
 import com.mangobazar.repository.SystemUserRepository;
+import com.mangobazar.util.RoleType;
 
 @Service
 @Transactional
@@ -62,12 +63,12 @@ public class SystemUserServiceImpl implements SystemUserService {
 		systemUser.setAddress(systemUserDto.getAddress());
 		systemUser.setContactNo(systemUserDto.getContactNo());
 
+		
+		// assign a default role customer
 		Set<UserRole> userRoleList = new HashSet<UserRole>();
-		for (Long i : systemUserDto.getRoleList()) {
-			UserRole role = new UserRole();
-			role.setId(i.longValue());
-			userRoleList.add(role);
-		}
+		UserRole userRole=new UserRole();
+		userRole.setId(RoleType.ROLE_CUSTOMER.getValue());
+		userRoleList.add(userRole);
 		systemUser.setRoles(userRoleList);
 
 		return systemUserRepository.saveAndFlush(systemUser);
