@@ -1,5 +1,8 @@
 package com.mangobazar.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -23,9 +26,10 @@ public class SystemUserDto {
 
     @ApiModelProperty(value = "User contact no", required = true)
     private String contactNo;
+    
+	
 
-
-    public String getEmail() {
+	public String getEmail() {
         return email;
     }
 

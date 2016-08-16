@@ -12,4 +12,6 @@ public interface SystemUserService {
     boolean checkPassword(String userPassword, String givenPassword);
 
     void updateLogOutTime(String userName);
+    
+    boolean hasAccess(SystemUser user,String  userName);
 }

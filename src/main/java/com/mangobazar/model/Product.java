@@ -2,7 +2,6 @@ package com.mangobazar.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +30,7 @@ public class Product {
 	@Column(name = "Name", nullable = false, unique = true)
 	private String name;
     
-    @OneToOne(fetch=FetchType.EAGER)
+    @OneToOne()
  	@JoinColumn(name= "CategoryId" )
     private Category category;
     
