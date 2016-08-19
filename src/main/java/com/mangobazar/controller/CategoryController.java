@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,8 @@ public class CategoryController {
     @RequestMapping(method = RequestMethod.POST)
     public void createCategory(@RequestBody CategoryDto categoryDto, HttpServletResponse response) {
         categoryService.createCategory(categoryDto.getName());
+        response.setStatus(HttpStatus.CREATED.value());
+      
     }
 
     @RequestMapping(method = RequestMethod.GET)
