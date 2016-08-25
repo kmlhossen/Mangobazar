@@ -28,9 +28,10 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 	}
 
 	@Override
-	public void updateProductType(ProductType productType) {
-		productTypeRepository.saveAndFlush(productType);
-
+	public void updateProductType(long id,String productTypeName) {
+		ProductType oldProductType= productTypeRepository.getOne(id);
+		oldProductType.setName(productTypeName);
+		productTypeRepository.saveAndFlush(oldProductType);
 	}
 
 	@Override

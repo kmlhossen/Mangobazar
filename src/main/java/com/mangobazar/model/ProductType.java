@@ -24,6 +24,11 @@ public class ProductType {
 	@JoinColumn(name = "ProductId", nullable = false)
 	private Product product;
 
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
 	public Long getId() {
 		return id;
 	}

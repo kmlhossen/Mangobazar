@@ -40,28 +40,28 @@ public class ProductTypeController {
 	    	productTypeService.addProductType(productType);
 	    }
 	    
-	    @GetMapping("/getProductTypeListByProductId")
+	    @GetMapping("/getProductTypeListByProductIdvalue/{productId}")
 	    @ApiOperation(value = "Get ProductType List", notes = "Returns all the ProductType of a Product",response = ProductType.class)
 	    public Collection<ProductType> GetProductTypeList(@ApiParam(value = "id of the product", required = true) @PathVariable long productId) {
 	        return productTypeService.getProductTypeListByProductId(productId);
 	    }
 	    
-	    @GetMapping("/getProductTypeById")
+	    @GetMapping("/getProductTypeById/{productTypeId}")
 	    @ApiOperation(value = "Get ProductType", notes = "Returns the ProductType", response = ProductType.class)
 	    public ProductType getProductType(@ApiParam(value = "id of the productType", required = true) @PathVariable long productTypeId) {
 	        return productTypeService.getProductTypeById(productTypeId);
 	    }
 	    
 	    @PreAuthorize("hasRole('ROLE_ADMIN')")
-	    @PatchMapping
+	    @PatchMapping("{id}")
 	    @ApiOperation(value = "Update ProductType Name", notes = "Updates the ProductType Name")
-	    public void updateProductType(@RequestBody ProductType productType, HttpServletResponse response) {
-	         productTypeService.updateProductType(productType);
+	    public void updateProductType(@ApiParam(value = "id of the product type", required = true) @PathVariable long id,@RequestBody String productTypeName, HttpServletResponse response) {
+	         productTypeService.updateProductType(id,productTypeName);
 	    }
 	    
 	    @PreAuthorize("hasRole('ROLE_ADMIN')")
-	    @DeleteMapping
-	    @ApiOperation(value = "Remove ProductType", notes = "Removes the ProductType", response = ProductType.class)
+	    @DeleteMapping("{productTypeId}")
+	    @ApiOperation(value = "Remove ProductType", notes = "Removes the ProductType")
 	    public void deleteProductType(@ApiParam(value = "id of the productType", required = true) @PathVariable long productTypeId) {
 	        productTypeService.deleteProductType(productTypeId);
 	    }
