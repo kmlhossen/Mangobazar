@@ -1,5 +1,9 @@
 package com.mangobazar.exception;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -8,10 +12,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import javax.persistence.EntityExistsException;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * This class handle exception thrown from rest controller.
